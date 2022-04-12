@@ -1,0 +1,12 @@
+# Ignore the config directory
+config/
+
+# Ignore git and cache folders
+.git
+.cache
+
+# Ignore all the markdown and class files
+*.md
+
+# Ignore LICENSE file
+LICENSE 
