@@ -7,11 +7,11 @@ This repository fetures the [dab multiplexer](https://github.com/opendigitalradi
 
 ## Setup
 In order to allow for data persistence and data sharing among the various mmbTools containers, please follow these instructions:
-1. Create the directory structure on your host:
+1. Create a temporary `odr-data` directory structure on your host:
     ```
     mkdir --parents \
-        ${HOME}/odr/mot \
-        ${HOME}/odr/supervisor
+        ${HOME}/odr-data/mot \
+        ${HOME}/odr-data/supervisor
     ```
 1. Declare your time zone:
     ```
@@ -23,11 +23,11 @@ In order to allow for data persistence and data sharing among the various mmbToo
     DABMUX_CONFIG=full_path_to_your_dabmux_configuration_file
 
     # case-2: you dont't have a config file. Take the sample from this repository
-    DABMUX_CONFIG=./config/odr-dabmux.info
+    DABMUX_CONFIG=./odr-data/odr-dabmux.info
     ```
-1. Copy the mux configuration file into the directory structure:
+1. Copy the mux configuration file into the temporary `odr-data` directory:
     ```
-    cp ${DABMUX_CONFIG} ${HOME}/odr/
+    cp ${DABMUX_CONFIG} ${HOME}/odr-data/
     ```
 1. Create a docker network:
     ```
@@ -46,18 +46,18 @@ In order to allow for data persistence and data sharing among the various mmbToo
     docker container create \
         --name odr-dabmux \
         --env "TZ=${TZ}" \
-        --volume odr:/odr \
+        --volume odr-data:/odr-data \
         --network odr \
         --publish 9201:9201 \
         --publish 12720:12720 \
         --publish 12721:12721 \
         --publish 12722:12722 \
         opendigitalradio/dabmux:latest \
-        $(basename ${DABMUX_CONFIG})
+        /odr-data/$(basename ${DABMUX_CONFIG})
     ```
-1. Copy the configuration directory to the container and volume:
+1. Copy the temporary `odr-data` directory to the container:
     ```
-    docker container cp ${HOME}/odr odr-dabmux:/
+    docker container cp ${HOME}/odr-data odr-dabmux:/
     ```
 1. Start the container 
     ```
