@@ -27,21 +27,26 @@ RUN  cd /root && \
 # Build the final image
 FROM debian:bullseye-slim
 ARG  DEBIAN_FRONTEND=noninteractive
+## Update system
 RUN  apt-get update && \
      apt-get upgrade --yes && \
      apt-get install --yes \
           apt-utils
-LABEL org.opencontainers.image.vendor="Open Digital Radio" 
-LABEL org.opencontainers.image.description="DAB/DAB+ Multiplexer" 
-LABEL org.opencontainers.image.authors="robin.alexander@netplus.ch" 
-COPY --from=builder /usr/local/bin/* /usr/bin/
-COPY start /usr/local/bin/
+## Install specific packages
 RUN  apt-get install --yes \
           libboost-system1.74.0 \
           libcurl4 \
           libzmq5 && \
-     rm -rf /var/lib/apt/lists/* && \
-     chmod 0755 /usr/local/bin/start
+     rm -rf /var/lib/apt/lists/*
+## Document image
+LABEL org.opencontainers.image.vendor="Open Digital Radio" 
+LABEL org.opencontainers.image.description="DAB/DAB+ Multiplexer" 
+LABEL org.opencontainers.image.authors="robin.alexander@netplus.ch" 
+## Copy objects built in the builder phase
+COPY --from=builder /usr/local/bin/* /usr/bin/
+COPY start /usr/local/bin/
+## Customization
+RUN  chmod 0755 /usr/local/bin/start
 EXPOSE 9001-9016
 EXPOSE 9201
 EXPOSE 12720-12722
