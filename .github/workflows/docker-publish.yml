@@ -1,8 +1,9 @@
 name: docker-publish
 on:
   push:
-    branches:
-      - 'master'
+    paths:
+      - 'Dockerfile'
+      - 'start'
 jobs:
   build:
     runs-on: ubuntu-latest
