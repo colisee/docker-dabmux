@@ -3,7 +3,7 @@
 ## Introduction
 This repository is part of a project aiming at containerizing the [mmbTools](https://www.opendigitalradio.org/mmbtools) software stack of [Open Digital Radio](https://www.opendigitalradio.org/).
 
-This repository fetures the [dab multiplexer](https://github.com/opendigitalradio/ODR-DabMux) component. 
+This repository features the [dab multiplexer](https://github.com/opendigitalradio/ODR-DabMux) component. 
 
 ## Setup
 In order to allow for data persistence and data sharing among the various mmbTools containers, please follow these instructions:
