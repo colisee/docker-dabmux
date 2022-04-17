@@ -12,6 +12,7 @@ This repository features the [dab multiplexer](https://github.com/opendigitalrad
     TZ=your_time_zone (ex: Europe/Zurich)
     ```
 1. Declare your mux configuration file:
+    ```
     MUX_CONFIG=$(pwd)/odr-data/odr-dabmux.info
     ```
 1. Run the container. Please note that the image uses ports:
