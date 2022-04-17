@@ -6,17 +6,13 @@ This repository is part of a project aiming at containerizing the [mmbTools](htt
 This repository features the [dab multiplexer](https://github.com/opendigitalradio/ODR-DabMux) component. 
 
 ## Quick setup
+1. Get this repository on your host
 1. Declare your time zone:
     ```
     TZ=your_time_zone (ex: Europe/Zurich)
     ```
 1. Declare your mux configuration file:
-    ```
-    # case-1: you have a config file
-    MUX_CONFIG=full_path_to_your_dabmux_configuration_file
-
-    # case-2: you dont't have a config file. Take the sample from this repository
-    MUX_CONFIG=./odr-data/odr-dabmux.info
+    MUX_CONFIG=$(pwd)/odr-data/odr-dabmux.info
     ```
 1. Run the container. Please note that the image uses ports:
     - 9001 - 9016: incoming audio/PAD streams
@@ -29,7 +25,7 @@ This repository features the [dab multiplexer](https://github.com/opendigitalrad
     docker container run \
         --name odr-dabmux \
         --detach \
-        -- rm \
+        --rm \
         --env "TZ=${TZ}" \
         --network odr \
         --publish 9201:9201 \
