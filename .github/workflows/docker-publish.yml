@@ -1,9 +1,7 @@
 name: docker-publish
 on:
-  push:
-    paths:
-      - 'Dockerfile'
-      - 'start'
+  release:
+    types: [published]
   workflow_dispatch:
 jobs:
   build:
