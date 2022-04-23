@@ -16,7 +16,7 @@ RUN  apt-get install --yes \
           libboost-system-dev \
           libcurl4-openssl-dev \
           libzmq3-dev  
-ARG  URL=ODR-DabMux/archive/refs/tags/v4.1.0.tar.gz
+ARG  URL=ODR-DabMux/archive/refs/tags/v4.2.1.tar.gz
 RUN  cd /root && \
      curl -L https://github.com/Opendigitalradio/${URL} | tar -xz && \
      cd ODR* && \
