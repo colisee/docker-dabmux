@@ -1,53 +1,52 @@
 # Build odr-audioenc
-FROM debian:bullseye-slim AS builder
-ARG  DEBIAN_FRONTEND=noninteractive
-RUN  apt-get update && \
-     apt-get upgrade --yes && \
-     apt-get install --yes \
-          apt-utils
+FROM ubuntu:22.04 AS builder
+ARG  URL_BASE=https://github.com/Opendigitalradio
+ARG  SOFTWARE=ODR-DabMux/archive/refs/tags
+ARG  VERSION=v4.2.1
+ENV  DEBIAN_FRONTEND=noninteractive
+## Update system
+RUN  apt-get update \
+     && apt-get upgrade --yes
+## Install build packages
 RUN  apt-get install --yes \
-          automake \
+          autoconf \
           build-essential \
           curl \
-          git \
-          libtool \
           pkg-config
+## Install development libraries and build
 RUN  apt-get install --yes \
           libboost-system-dev \
           libcurl4-openssl-dev \
-          libzmq3-dev  
-ARG  URL=ODR-DabMux/archive/refs/tags/v4.2.1.tar.gz
-RUN  cd /root && \
-     curl -L https://github.com/Opendigitalradio/${URL} | tar -xz && \
-     cd ODR* && \
-     ./bootstrap.sh && \
-     ./configure && \
-     make && make install 
+          libzmq3-dev \
+     && cd /root \
+     && curl -L ${URL_BASE}/${SOFTWARE}/${VERSION}.tar.gz | tar -xz \
+     && cd ODR* \
+     && ./bootstrap.sh \
+     && ./configure \
+     && make \
+     && make install 
 
 # Build the final image
-FROM debian:bullseye-slim
-ARG  DEBIAN_FRONTEND=noninteractive
+FROM ubuntu:22.04
+ENV  DEBIAN_FRONTEND=noninteractive
 ## Update system
-RUN  apt-get update && \
-     apt-get upgrade --yes && \
-     apt-get install --yes \
-          apt-utils
-## Install specific packages
-RUN  apt-get install --yes \
-          libboost-system1.74.0 \
-          libcurl4 \
-          libzmq5 && \
-     rm -rf /var/lib/apt/lists/*
-## Document image
-LABEL org.opencontainers.image.vendor="Open Digital Radio" 
-LABEL org.opencontainers.image.description="DAB/DAB+ Multiplexer" 
-LABEL org.opencontainers.image.authors="robin.alexander@netplus.ch" 
+RUN  apt-get update \
+     && apt-get upgrade --yes
 ## Copy objects built in the builder phase
 COPY --from=builder /usr/local/bin/* /usr/bin/
 COPY start /usr/local/bin/
-## Customization
-RUN  chmod 0755 /usr/local/bin/start
+## Install production libraries
+RUN  chmod 0755 /usr/local/bin/start \
+     && apt-get install --yes \
+          libboost-system1.74.0 \
+          libcurl4 \
+          libzmq5 \
+     && rm -rf /var/lib/apt/lists/*
+
 EXPOSE 9001-9016
 EXPOSE 9201
 EXPOSE 12720-12722
 ENTRYPOINT ["start"]
+LABEL org.opencontainers.image.vendor="Open Digital Radio" 
+LABEL org.opencontainers.image.description="DAB/DAB+ Multiplexer" 
+LABEL org.opencontainers.image.authors="robin.alexander@netplus.ch" 
