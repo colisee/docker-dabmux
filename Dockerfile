@@ -41,6 +41,7 @@ RUN  chmod 0755 /usr/local/bin/start \
           libboost-system1.74.0 \
           libcurl4 \
           libzmq5 \
+          tzdata \
      && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 9001-9016
