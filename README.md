@@ -11,11 +11,11 @@ This repository features the [dab multiplexer (v4.2.1)](https://github.com/opend
 1. Get this repository on your host
 1. Declare your time zone:
     ```
-    TZ=your_time_zone (ex: Europe/Zurich)
+    TZ=your_time_zone (ex: TZ=Europe/Zurich)
     ```
 1. Declare your mux configuration file:
     ```
-    MUX_CONFIG=$(pwd)/odr-data/odr-dabmux.info
+    MUX_CONFIG=$(pwd)/config/odr-dabmux.info
     ```
 1. Run the container. Please note that the image uses ports:
     - 9001 - 9016: incoming audio/PAD streams
