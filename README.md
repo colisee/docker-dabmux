@@ -36,8 +36,7 @@ This repository features the [dab multiplexer (v4.2.1)](https://github.com/opend
         --publish 12721:12721 \
         --publish 12722:12722 \
         --volume ${MUX_CONFIG}:/config/mux.ini \
-        opendigitalradio/dabmux:latest \
-        /config/mux.ini
+        opendigitalradio/dabmux:latest
     ```
 
 ## Test
