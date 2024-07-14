@@ -1,4 +1,12 @@
 #!/bin/bash
 
-# Start the mux
-odr-dabmux "${1}"
+argc=$#
+argv=$*
+
+set -euo pipefail
+
+if [ ${argc} -eq 0 ]; then
+  odr-dabmux /config/mux.ini
+else
+  odr-dabmux ${argv}
+fi
