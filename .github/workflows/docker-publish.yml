@@ -29,6 +29,7 @@ jobs:
       -
         name: Get last tag
         run: |
+          git tag --list
           lastTag="$(git tag --list | head --lines=1)"
           echo "Last tag is $lastTag"
           echo "lastTag=$lastTag" >> "$GITHUB_ENV"
