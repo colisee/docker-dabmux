@@ -31,9 +31,7 @@ jobs:
       -
         name: Get last tag
         run: |
-          git tag --list
-          lastTag="$(git tag --list | head --lines=1)"
-          echo "Last tag is $lastTag"
+          lastTag="$(git tag --sort=-taggerdate | head --lines=1)"
           echo "lastTag=$lastTag" >> "$GITHUB_ENV"
       -
         name: Build and push
