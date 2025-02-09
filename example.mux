@@ -17,8 +17,8 @@ ensemble {
     local-time-offset auto
     international-table 1
     reconfig-counter hash
-    label "Micro DAB"
-    shortlabel "M DAB"
+    label "Opendigitalradio"
+    shortlabel "ODR"
 }
 
 services {
