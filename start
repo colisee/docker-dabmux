@@ -1,12 +1,9 @@
 #!/bin/bash
 
-argc=$#
-argv=$*
-
 set -euo pipefail
 
-if [ ${argc} -eq 0 ]; then
-  odr-dabmux /config/mux.ini
+if [ -f /config/odr-dabmux.mux ]; then
+  odr-dabmux /config/odr-dabmux.mux
 else
-  odr-dabmux ${argv}
+  echo "Configuration file not found"
 fi
