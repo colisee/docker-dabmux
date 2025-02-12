@@ -18,7 +18,6 @@ ensemble {
     international-table 1
     reconfig-counter hash
     label "Opendigitalradio"
-    shortlabel "ODR"
 }
 
 services {
