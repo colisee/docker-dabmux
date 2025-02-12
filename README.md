@@ -7,14 +7,9 @@ This repository is part of a project aiming at containerizing the
 [mmbTools](https://www.opendigitalradio.org/mmbtools) software stack of
 [Open Digital Radio](https://www.opendigitalradio.org/).
 
-It features the
-[dab multiplexer](https://github.com/opendigitalradio/ODR-DabMux) container
-image which exposes the following ports:
-- 9001 - 9016: incoming encoder streams
-- 9201: output stream
-- 12720: multiplexer server management port
-- 12721: multiplexer ftp port
-- 12722: multiplexer ZMQ RC port
+This repository exposes the
+[Opendigitalradio dab multiplexer](https://github.com/opendigitalradio/ODR-DabMux) inside a container.
+
 
 ## Pre-requisites
 You need to install [docker](https://www.docker.com) or
@@ -42,13 +37,13 @@ docker image build \
 ```
 
 ## Run the container
-1. Declare your time zone:
+1. Set your time zone:
     ```
     TZ=Europe/Zurich
     ```
-1. Declare your mux configuration file:
+1. Set your mux configuration file:
     ```
-    MUX_CONFIG=example.mux
+    MUX_CONFIG=$(pwd)/example.mux
     ```
 1. Run the container
    ```
@@ -58,7 +53,7 @@ docker image build \
      --rm \
      --env "TZ=${TZ}" \
      --network host \
-     --volume $(pwd)/${MUX_CONFIG}:/config/odr-dabmux.mux \
+     --volume ${MUX_CONFIG}:/config/odr-dabmux.mux \
      opendigitalradio/dabmux
    ```
 
